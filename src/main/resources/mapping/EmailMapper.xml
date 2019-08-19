@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ncu.emailManagement.dao.EmailMapper" >
+  <resultMap id="BaseResultMap" type="com.ncu.emailManagement.pojo.Email" >
+    <id column="email_id" property="emailId" jdbcType="BIGINT" />
+    <result column="send_id" property="sendId" jdbcType="BIGINT" />
+    <result column="receive_id" property="receiveId" jdbcType="BIGINT" />
+    <result column="email_title" property="emailTitle" jdbcType="VARCHAR" />
+    <result column="email_attach" property="emailAttach" jdbcType="VARCHAR" />
+    <result column="is_read" property="isRead" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ncu.emailManagement.pojo.Email" extends="BaseResultMap" >
+    <result column="email_content" property="emailContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    email_id, send_id, receive_id, email_title, email_attach, is_read
+  </sql>
+  <sql id="Blob_Column_List" >
+    email_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from email
+    where email_id = #{emailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from email
+    where email_id = #{emailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ncu.emailManagement.pojo.Email" >
+    insert into email (email_id, send_id, receive_id, 
+      email_title, email_attach, is_read, 
+      email_content)
+    values (#{emailId,jdbcType=BIGINT}, #{sendId,jdbcType=BIGINT}, #{receiveId,jdbcType=BIGINT}, 
+      #{emailTitle,jdbcType=VARCHAR}, #{emailAttach,jdbcType=VARCHAR}, #{isRead,jdbcType=BIGINT}, 
+      #{emailContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ncu.emailManagement.pojo.Email" >
+    insert into email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emailId != null" >
+        email_id,
+      </if>
+      <if test="sendId != null" >
+        send_id,
+      </if>
+      <if test="receiveId != null" >
+        receive_id,
+      </if>
+      <if test="emailTitle != null" >
+        email_title,
+      </if>
+      <if test="emailAttach != null" >
+        email_attach,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="emailContent != null" >
+        email_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emailId != null" >
+        #{emailId,jdbcType=BIGINT},
+      </if>
+      <if test="sendId != null" >
+        #{sendId,jdbcType=BIGINT},
+      </if>
+      <if test="receiveId != null" >
+        #{receiveId,jdbcType=BIGINT},
+      </if>
+      <if test="emailTitle != null" >
+        #{emailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="emailAttach != null" >
+        #{emailAttach,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=BIGINT},
+      </if>
+      <if test="emailContent != null" >
+        #{emailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ncu.emailManagement.pojo.Email" >
+    update email
+    <set >
+      <if test="sendId != null" >
+        send_id = #{sendId,jdbcType=BIGINT},
+      </if>
+      <if test="receiveId != null" >
+        receive_id = #{receiveId,jdbcType=BIGINT},
+      </if>
+      <if test="emailTitle != null" >
+        email_title = #{emailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="emailAttach != null" >
+        email_attach = #{emailAttach,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=BIGINT},
+      </if>
+      <if test="emailContent != null" >
+        email_content = #{emailContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where email_id = #{emailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ncu.emailManagement.pojo.Email" >
+    update email
+    set send_id = #{sendId,jdbcType=BIGINT},
+      receive_id = #{receiveId,jdbcType=BIGINT},
+      email_title = #{emailTitle,jdbcType=VARCHAR},
+      email_attach = #{emailAttach,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=BIGINT},
+      email_content = #{emailContent,jdbcType=LONGVARCHAR}
+    where email_id = #{emailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ncu.emailManagement.pojo.Email" >
+    update email
+    set send_id = #{sendId,jdbcType=BIGINT},
+      receive_id = #{receiveId,jdbcType=BIGINT},
+      email_title = #{emailTitle,jdbcType=VARCHAR},
+      email_attach = #{emailAttach,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=BIGINT}
+    where email_id = #{emailId,jdbcType=BIGINT}
+  </update>
+</mapper>
