@@ -1,6 +1,8 @@
 package com.ncu.emailManagement.controller;
+
 import com.ncu.emailManagement.pojo.User;
 import com.ncu.emailManagement.service.EmailService;
+
 import com.ncu.emailManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,6 @@ public class EmailController extends BaseController {
     @RequestMapping("/getAddress")
     @ResponseBody
     public List<User> getAddress(){
-       return userService.findAllUser();
+        return userService.findAllUser();
     }
 }

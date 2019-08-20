@@ -1,11 +1,18 @@
 package com.ncu.emailManagement.pojo;
-
-public class Email {
+import org.springframework.stereotype.Component;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
+@Component
+public class Email implements Serializable {
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long emailId;
 
-    private User sender;
+    private Long sendId;
 
-    private User receiver;
+    private Long receiveId;
 
     private String emailTitle;
 
@@ -23,20 +30,20 @@ public class Email {
         this.emailId = emailId;
     }
 
-    public User getSender() {
-        return sender;
+    public Long getSendId() {
+        return sendId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSendId(Long sendId) {
+        this.sendId = sendId;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public Long getReceiveId() {
+        return receiveId;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceiveId(Long receiveId) {
+        this.receiveId = receiveId;
     }
 
     public String getEmailTitle() {

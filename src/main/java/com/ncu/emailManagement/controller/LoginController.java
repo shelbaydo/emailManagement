@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * created by LI LICHUNYAN at 2019/8/20
  */
 @Controller
+
 public class LoginController extends BaseController {
     @Autowired
     UserService userService;
@@ -36,5 +37,16 @@ public class LoginController extends BaseController {
         getSession().setAttribute("user",user);
         model.addAttribute("user",user);
         return "jsp/personal/index";
+    }
+    /**
+     * 退出登录
+
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String exit() {
+        getSession().removeAttribute( "user" );
+        getSession().invalidate();
+        return "index";
     }
 }
