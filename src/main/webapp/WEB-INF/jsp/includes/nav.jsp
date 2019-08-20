@@ -5,9 +5,15 @@
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}/index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
+<<<<<<< HEAD
         <span class="logo-mini"><b>内部邮件管理系统</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>内部邮件管理系统</b></span>
+=======
+        <span class="logo-mini"><b>Email</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Email Management</b></span>
+>>>>>>> origin/master
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * created by LI LICHUNYAN at 2019/8/20
  */
 @Controller
-
 public class LoginController extends BaseController {
     @Autowired
     UserService userService;

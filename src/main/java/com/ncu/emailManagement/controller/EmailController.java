@@ -1,8 +1,6 @@
 package com.ncu.emailManagement.controller;
-
 import com.ncu.emailManagement.pojo.User;
 import com.ncu.emailManagement.service.EmailService;
-
 import com.ncu.emailManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -13,9 +13,9 @@ public class Email implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long emailId;
 
-    private Long sendId;
+    private User sender;
 
-    private Long receiveId;
+    private User receiver;
 
     private String emailTitle;
 
@@ -33,20 +33,20 @@ public class Email implements Serializable {
         this.emailId = emailId;
     }
 
-    public Long getSendId() {
-        return sendId;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSendId(Long sendId) {
-        this.sendId = sendId;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    public Long getReceiveId() {
-        return receiveId;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setReceiveId(Long receiveId) {
-        this.receiveId = receiveId;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     public String getEmailTitle() {

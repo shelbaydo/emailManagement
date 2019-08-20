@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ncu.emailManagement.dao.EmailMapper" >
-
+    <sql id="emailColumns">
+        email_id,
+        s.id AS send_id,
+        s.user_name AS send_username,
+        s.role AS send_role,
+        s.is_active AS send_isActive,
+        r.id AS receive_id,
+        r.user_name AS receive_username,
+        r.role AS receive_role,
+        r.is_active AS receive_isActive,
+        email_content,
+        email_title,
+        email_attach,
+        is_read
+    </sql>
+    <resultMap id="emailResultMap" type="com.ncu.emailManagement.pojo.Email">
+        <id property="emailId" column="email_id"/>
+        <result property="emailContent" column="email_content"/>
+        <result property="emailTitle" column="email_title"/>
+        <result property="emailAttach" column="email_attach"/>
+        <result property="isRead" column="is_read"/>
+        <association property="sender" javaType="com.ncu.emailManagement.pojo.User">
+            <id property="id" column="send_id"/>
+            <result property="userName" column="send_username"/>
+            <result property="role" column="send_role"/>
+            <result property="isActive" column="send_isActive"/>
+        </association>
+        <association property="receiver" javaType="com.ncu.emailManagement.pojo.User">
+            <id property="id" column="receive_id"/>
+            <result property="userName" column="receive_username"/>
+            <result property="role" column="receive_role"/>
+            <result property="isActive" column="receive_isActive"/>
+        </association>
+    </resultMap>
+    <select id="selectAll" resultMap="emailResultMap">
+        SELECT
+            <include refid="emailColumns"/>
+        FROM email LEFT JOIN user AS s ON send_id = s.id LEFT JOIN user AS r ON receive_id = r.id
+    </select>
 </mapper>
