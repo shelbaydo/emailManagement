@@ -69,7 +69,7 @@
 <body>
 <div class="active-head">
     <div style="line-height: 44px;margin-left: 500px">
-        <span style="color: white;font-family: Arial;font-size: 18px">APPSTORE - APP信息管理平台注册成功页面</span>
+        <span style="color: white;font-family: Arial;font-size: 18px">内部邮件系统注册成功页面</span>
     </div>
     <div class="content">
         <div class="single-clear">
@@ -94,17 +94,14 @@
 <script language=javascript>
 
     $("#btn").click(function () {
-        <c:if test="${type eq 'normalUser'}">
-            location.href="${ctx}/jsp/developer/login.jsp";
-        </c:if>
-        <c:if test="${type eq 'backendUser'}">
-        location.href="${ctx}/jsp/backend/login.jsp";
-        </c:if>
+
+        location.href="${ctx}/to_login";
+
 
     });
 
     $("#btn1").click(function () {
-        location.href="../../index.jsp";
+        location.href="${ctx}/index";
     });
 </script>
 </html>

@@ -4,7 +4,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 <html lang="en">
 <head>
-    <title>AppStore</title>
+    <title>内部邮件系统</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -51,14 +51,9 @@
                 <div class="col-md-6 top-head ml-lg-auto text-center">
                     <div class="row ">
                         <div class=" col-md-3">
-                            <a href="${ctx}/developerLogin" >
-                                普通用户登录</a>
+                            <a href="${ctx}/to_login" >
+                                入口</a>
                         </div>
-                        <div class="  col-md-3 ">
-                            <a href="${ctx}/backendLogin"  >
-                                后台管理员登录</a>
-                        </div>
-                      
                     </div>
                 </div>
             </div>

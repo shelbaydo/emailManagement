@@ -44,4 +44,15 @@
     <filter-name>characterEncoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!--验证码-->
+  <servlet>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <servlet-class>
+      com.ncu.emailManagement.common.CodeCaptchaServlet
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <url-pattern>/captchaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
