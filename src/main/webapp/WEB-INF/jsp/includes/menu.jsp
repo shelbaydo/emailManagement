@@ -37,17 +37,13 @@
                 <li class="header">功能菜单</li>
                 <li class="active treeview">
                     <a href="#">
-                        <i class="fa fa-apple"></i> <span>用户管理</span>
+                        <i class="fa fa-apple"></i> <span>用户锁定</span>
                         <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
                     </a>
                     <ul class="treeview-menu">
-<<<<<<< HEAD
-                        <li><a href="${ctx}/app/list"><i class="fa fa-circle-o"></i> 全部用户</a></li>
-=======
-                        <li><a href="${pageContext.request.contextPath}/user/list"><i class="fa fa-circle-o"></i> 全部用户</a></li>
->>>>>>> origin/master
+                        <li><a href="${pageContext.request.contextPath}/app/list"><i class="fa fa-circle-o"></i> 全部用户</a></li>
                     </ul>
                 </li>
                 <li class="active treeview">
@@ -58,44 +54,7 @@
                             </span>
                     </a>
                     <ul class="treeview-menu">
-<<<<<<< HEAD
-                        <li><a href="${ctx}/DevUserDetail"><i class="fa fa-circle-o"></i> 全部非法邮件</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </c:if>
-        <c:if test="${user.role == 1}">
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">功能菜单</li>
-                <li class="active treeview">
-                    <a href="#">
-                        <i class="fa fa-apple"></i> <span>信件管理</span>
-                        <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="${ctx}/writeEmail"><i class="fa fa-circle-o"></i> 写信</a></li>
-                    </ul>
-                    <ul class="treeview-menu">
-                        <li><a href="${ctx}/EmailBox"><i class="fa fa-circle-o"></i> 收件箱</a></li>
-                    </ul>
-                    <ul class="treeview-menu">
-                        <li><a href="${ctx}/sent"><i class="fa fa-circle-o"></i> 已发送</a></li>
-                    </ul>
-                </li>
-                <li class="active treeview">
-                    <a href="#">
-                        <i class="fa fa-book"></i> <span>用户中心</span>
-                        <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="${ctx}/UserDetail"><i class="fa fa-circle-o"></i> 修改密码</a></li>
-=======
-                        <li><a href="${pageContext.request.contextPath}/email/list"><i class="fa fa-circle-o"></i> 全部非法邮件</a></li>
->>>>>>> origin/master
+                        <li><a href="${pageContext.request.contextPath}/DevUserDetail"><i class="fa fa-circle-o"></i> 全部非法邮件</a></li>
                     </ul>
                 </li>
             </ul>

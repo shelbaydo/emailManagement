@@ -1,16 +1,6 @@
 package com.ncu.emailManagement.pojo;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
-
-@Component
-public class Email implements Serializable {
-    @Id//标识主键
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+public class Email {
     private Long emailId;
 
     private User sender;

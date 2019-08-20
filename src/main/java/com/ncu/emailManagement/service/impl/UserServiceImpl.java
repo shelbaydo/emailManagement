@@ -10,7 +10,6 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 
-
 /**
  * emailManagement-com.ncu.emailManagement.service.impl
  * created by LI LICHUNYAN at 2019/8/20
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService {
         return  user;
     }
     public int updateUser(User user){
-       return userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKey(user);
     }
     public User findUserByUserName(String userName){
         User user = new User();
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUser() {
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("role", 1);
+        criteria.andEqualTo("role", 1l);
         return userMapper.selectByExample(example);
     }
 }
