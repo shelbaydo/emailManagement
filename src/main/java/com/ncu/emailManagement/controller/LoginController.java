@@ -38,4 +38,15 @@ public class LoginController extends BaseController {
         model.addAttribute("user",user);
         return "jsp/personal/index";
     }
+    /**
+     * 退出登录
+
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String exit() {
+        getSession().removeAttribute( "user" );
+        getSession().invalidate();
+        return "index";
+    }
 }

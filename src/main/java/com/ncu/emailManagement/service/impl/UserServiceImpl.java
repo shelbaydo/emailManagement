@@ -5,6 +5,9 @@ import com.ncu.emailManagement.pojo.User;
 import com.ncu.emailManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 /**
  * emailManagement-com.ncu.emailManagement.service.impl
@@ -18,13 +21,18 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         return  user;
     }
-    public User updateUser(User user){
-        userMapper.updateByPrimaryKeySelective(user);
-        return user;
+    public int updateUser(User user){
+       return userMapper.updateByPrimaryKey(user);
     }
     public User findUserByUserName(String userName){
         User user = new User();
         user.setUserName(userName);
         return userMapper.selectOne(user);
+    }
+    public List<User> findAllUser(){
+        Example example = new Example(User.class);
+        Example.Criteria  criteria = example.createCriteria();
+        criteria.andEqualTo("role",1);
+        return userMapper.selectByExample(example);
     }
 }

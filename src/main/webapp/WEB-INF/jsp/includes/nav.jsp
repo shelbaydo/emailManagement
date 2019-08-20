@@ -5,9 +5,9 @@
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}/index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>AppStore</b></span>
+        <span class="logo-mini"><b>内部邮件管理系统</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>AppStore</b></span>
+        <span class="logo-lg"><b>内部邮件管理系统</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -16,13 +16,13 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
         <div class="navbar-custom-menu">
-            <c:if test="${not empty backendUser}">
+            <c:if test="${user.role == 1}">
                 <ul class="nav navbar-nav">
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${backendUser.usercode}</span>
+                            <span class="hidden-xs">${user.userName}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -30,43 +30,43 @@
                                 <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                        ${backendUser.usercode}-管理员
+                                        ${user.userName}
 
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="${ctx}/BackUserDetail" class="btn btn-default btn-flat">个人信息</a>
+                                    <a href="${ctx}/UserDetail" class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="${ctx}/logout_backend" class="btn btn-default btn-flat">注销</a>
+                                    <a href="${ctx}/logout" class="btn btn-default btn-flat">注销</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </c:if>
-            <c:if test="${not empty devUser}">
+            <c:if test="${user.role == 0}">
                 <ul class="nav navbar-nav">
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${devUser.devcode}</span>
+                            <span class="hidden-xs">${user.userName}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 <p>
-                                        ${devUser.devcode}-开发者
+                                        ${user.userName}-管理员
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="${ctx}/DevUserDetail" class="btn btn-default btn-flat">个人信息</a>
+                                    <a href="${ctx}/UserDetail" class="btn btn-default btn-flat">个人信息</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="${ctx}/logout" class="btn btn-default btn-flat">注销</a>

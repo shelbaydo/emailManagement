@@ -43,7 +43,7 @@
                     <div class="logo">
                         <h1>
                             <a class="navbar-brand" href="index.html">
-                                <i class="fab fa-cloudversify"></i>appstore</a>
+                                <i class="fab fa-cloudversify"></i>内部邮件管理系统</a>
                         </h1>
                     </div>
                 </div>
