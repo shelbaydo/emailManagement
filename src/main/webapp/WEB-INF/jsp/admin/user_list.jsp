@@ -118,6 +118,5 @@
 <!-- /.content-wrapper -->
 <jsp:include page="../includes/copyright.jsp"/>
 <jsp:include page="../includes/footer.jsp"/>
-
 </body>
 </html>

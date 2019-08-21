@@ -4,7 +4,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 <html>
 <head>
-    <title>AppStore | 控制面板</title>
+    <title>内部邮件管理系统 | 控制面板</title>
     <jsp:include page="../includes/header.jsp"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

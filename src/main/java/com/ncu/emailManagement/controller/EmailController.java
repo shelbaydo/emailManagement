@@ -7,12 +7,12 @@ import com.ncu.emailManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * emailManagement-com.ncu.emailManagement.controller
@@ -24,28 +24,32 @@ public class EmailController extends BaseController {
     EmailService emailService;
     @Autowired
     UserService userService;
-    @RequestMapping("/writeEmail")
+    @RequestMapping(value = "/writeEmail",method = RequestMethod.GET)
     public String write(Model model){
         User user = (User)getSession().getAttribute("user");
         model.addAttribute("user",user);
         return "jsp/personal/writeEmail";
     }
-    @RequestMapping("/EmailBox")
-    public String emailBox(Model model){
+    @RequestMapping(value = "/replyEmail/{sendId}",method = RequestMethod.GET)
+    public String reply(Model model,@PathVariable long sendId){
         User user = (User)getSession().getAttribute("user");
         model.addAttribute("user",user);
-        return "jsp/personal/EmailBox";
+        User send = userService.findUserById(sendId);
+        model.addAttribute("send",send);
+        return "jsp/personal/writeEmail";
     }
-    @RequestMapping("/sent")
-    public String sent(Model model){
+    @RequestMapping(value = "/deleteEmail/{emailId}",method = RequestMethod.GET)
+    public String delete(Model model,@PathVariable long emailId){
         User user = (User)getSession().getAttribute("user");
+        long sendId = emailService.selectByEmailId(emailId).getSendId();
+        emailService.deleteByEmailId(emailId);
         model.addAttribute("user",user);
-        return "jsp/personal/sent";
-    }
-    @RequestMapping("/sendEmail")
-    public Map<String ,Object> sendEmail(){
-        Map<String,Object> map = new HashMap<String,Object>();
-        return map;
+        if(sendId==user.getId()){
+            return "redirect:/sent";
+        }else {
+            return "redirect:/EmailBox";
+        }
+
     }
     @RequestMapping("/getAddress")
     @ResponseBody

@@ -13,4 +13,6 @@ public interface UserService {
     public int updateUser(User user);
     public User findUserByUserName(String UserName);
     public List<User> findAllUser();
+
+    public User findUserById(long sendId);
 }

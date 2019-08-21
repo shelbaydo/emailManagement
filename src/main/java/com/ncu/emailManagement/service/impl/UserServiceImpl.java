@@ -35,4 +35,12 @@ public class UserServiceImpl implements UserService {
         criteria.andEqualTo("role",1);
         return userMapper.selectByExample(example);
     }
+
+    @Override
+    public User findUserById(long sendId) {
+        User user = new User();
+        user.setId(sendId);
+        return userMapper.selectOne(user);
+
+    }
 }

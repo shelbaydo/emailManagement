@@ -51,36 +51,44 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">写邮件</h3>
                         </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="form-group">
-                                <select id="address" name="address" class="form-control">
-                                    <option value="">--请选择收件人--</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="标题" name="emailTitle" id="emailTitle">
-                            </div>
-                            <div class="form-group">
+                        <form action="#" method="post" enctype="multipart/form-data">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <select id="address" name="address" class="form-control">
+                                        <c:if test="${not empty send}">
+                                            <option value="${send.id}">${send.userName}</option>
+                                        </c:if>
+                                        <c:if test="${empty send}">
+                                            <option value="">--请选择收件人--</option>
+                                        </c:if>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="标题" name="emailTitle" id="emailTitle">
+                                </div>
+                                <div class="form-group">
                                 <textarea id="compose-textarea" class="form-control" style="height: 300px" name="emailContent" id="emailContent">
 
                                 </textarea>
-                            </div>
-                            <div class="form-group">
-                                <div class="btn btn-default btn-file">
-                                    <i class="fa fa-paperclip"></i> 附件
-                                    <input type="file" name="emailAttach">
                                 </div>
-                                <p class="help-block">最大. 32MB</p>
+                                <div class="form-group">
+                                    <div class="btn btn-default btn-file">
+                                        <i class="fa fa-paperclip"></i> 附件
+                                        <input type="file" name="emailAttach">
+                                    </div>
+                                    <p class="help-block">最大. 32MB</p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-primary" onclick="send()"><i class="fa fa-envelope-o"></i> 发送</button>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" onclick="alert('发送成功！')" ><i class="fa fa-envelope-o"></i> 发送</button>
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.box-footer -->
+                            <!-- /.box-footer -->
+                        </form>
                     </div>
                     <!-- /. box -->
                 </div>
