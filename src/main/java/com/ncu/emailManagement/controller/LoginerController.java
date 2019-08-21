@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 
-public class LoginController extends BaseController {
+public class LoginerController extends BaseController {
     @Autowired
     UserService userService;
     @RequestMapping(value = "/to_login")

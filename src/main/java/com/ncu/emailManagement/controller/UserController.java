@@ -6,44 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
- * emailManagement-com.ncu.emailManagement.controller
- * created by LI LICHUNYAN at 2019/8/20
- */
+ * @program: emailManagement
+ * @description:
+ * @author: Leo
+ * @create: 2019-08-20 15:14
+ **/
 @Controller
+@RequestMapping("user")
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
-    @RequestMapping("UserDetail")
-    public String UserDetail(Model model){
-        User user = (User)getSession().getAttribute("user");
-        if(user==null){
-            return "index";
-        }else{
-            model.addAttribute("user",user);
-            return "jsp/personal/UserDetail";
-        }
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String list(Model model){
+        List<User> userList = userService.selectAll();
+        model.addAttribute("userList",userList);
+        return "/jsp/admin/user_list";
     }
-    @RequestMapping("alterUserInfo")
-    @ResponseBody
-    public Map<String,Object> alterDevUserInfo(@RequestParam(value = "password") String password)
-    {
-        Map<String ,Object> resultMap = new HashMap<String ,Object>();
-        User user = (User)getSession().getAttribute("user");
-        if(password!=null&&password.equals("")==false){
-            user.setPassword(password);
-        }
-        if(userService.updateUser(user)>0){
-            resultMap.put("message","ok");
-        }else{
-            resultMap.put("message","fail");
-        }
-        return resultMap;
+
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public String page(){
+        return null;
     }
 }

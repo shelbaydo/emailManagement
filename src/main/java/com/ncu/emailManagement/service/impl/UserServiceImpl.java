@@ -43,4 +43,23 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectOne(user);
 
     }
+
+    @Override
+    public int lockUser(Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setIsActive(0L);
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public List<User> selectAllPersonalUser(Long role) {
+        return userMapper.selectAllPersonalUser(role);
+    }
+
+    @Override
+    public List<User> selectAll() {
+        return userMapper.select(new User());
+    }
+
 }

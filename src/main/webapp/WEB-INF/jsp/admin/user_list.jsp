@@ -96,14 +96,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${userList}" var="user">
-                                        <tr>
-                                            <td>${user.userName}</td>
-                                            <td><c:if test="${user.isActive == 0}">非法用户</c:if><c:if test="${user.isActive == 1}">合法用户</c:if></td>
-                                            <td><c:if test="${user.role == 0}">管理员</c:if><c:if test="${user.role == 1}">普通用户</c:if></td>
-                                            <td><button class="btn btn-danger btn-sm" onclick=""><i class="fa fa-trash-o">锁定</i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick=""><i class="fa fa-trash-o">解除</i></button></td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach items="${userList}" var="user">
+                                    <tr>
+                                        <td>${user.userName}</td>
+                                        <td><c:if test="${user.isActive == 0}">非法用户</c:if><c:if test="${user.isActive == 1}">合法用户</c:if></td>
+                                        <td><c:if test="${user.role == 0}">管理员</c:if><c:if test="${user.role == 1}">普通用户</c:if></td>
+                                        <td><button class="btn btn-danger btn-sm" onclick=""><i class="fa fa-trash-o">锁定</i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick=""><i class="fa fa-trash-o">解除</i></button></td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
 
                             </table>
@@ -118,5 +118,6 @@
 <!-- /.content-wrapper -->
 <jsp:include page="../includes/copyright.jsp"/>
 <jsp:include page="../includes/footer.jsp"/>
+
 </body>
 </html>

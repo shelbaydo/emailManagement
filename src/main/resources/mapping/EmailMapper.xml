@@ -37,7 +37,7 @@
     </resultMap>
     <select id="selectAll" resultMap="emailResultMap">
         SELECT
-            <include refid="emailColumns"/>
+        <include refid="emailColumns"/>
         FROM email LEFT JOIN user AS s ON send_id = s.id LEFT JOIN user AS r ON receive_id = r.id
     </select>
 </mapper>

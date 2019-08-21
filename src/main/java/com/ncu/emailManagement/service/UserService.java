@@ -15,4 +15,12 @@ public interface UserService {
     public List<User> findAllUser();
 
     public User findUserById(long sendId);
+
+
+
+    int lockUser(Long id);
+
+    List<User> selectAllPersonalUser(Long role);
+
+    List<User> selectAll();
 }
