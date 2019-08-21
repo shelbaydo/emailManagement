@@ -65,7 +65,7 @@
                         <div class="box-body no-padding">
                             <div class="table-responsive mailbox-messages">
                                 <table class="table table-hover table-striped">
-                                    <c:forEach items="${emails}" var="email">
+                                    <c:forEach items="${page.result}" var="email">
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
@@ -92,18 +92,29 @@
                                 <!-- Check all button -->
                                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                                 </button>
-                                <div class="btn-group">
+                               <%-- <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
                                     <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
                                     <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                                </div>
+                                </div>--%>
                                 <!-- /.btn-group -->
                                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                                 <div class="pull-right">
-                                    1-50/200
+                                    ${page.pageNum}/${page.pages}
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                        <c:if test="${page.pageNum <= 1}">
+                                            <a href="javascript:void(0);"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button></a>
+                                        </c:if>
+                                        <c:if test="${page.pageNum >1}">
+                                            <a href="${ctx}/EmailBox?pageNum=${page.pageNum-1}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button></a>
+                                        </c:if>
+                                        <c:if test="${page.pageNum>=page.pages}">
+                                            <a href="javascript:void(0);"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button></a>
+                                        </c:if>
+                                        <c:if test="${page.pageNum<page.pages}">
+                                            <a href="${ctx}/EmailBox?pageNum=${page.pageNum+1}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button></a>
+                                        </c:if>
+
                                     </div>
                                     <!-- /.btn-group -->
                                 </div>

@@ -1,5 +1,6 @@
 package com.ncu.emailManagement.controller;
 
+import com.ncu.emailManagement.common.PageHelper;
 import com.ncu.emailManagement.pojo.Email;
 import com.ncu.emailManagement.pojo.User;
 import com.ncu.emailManagement.service.EmailService;
@@ -92,6 +93,7 @@ public class ExtraController extends BaseController{
         }
         emailService.insertEmail(email);
         return "redirect:/sent";
+
     }
 
     /**
@@ -103,11 +105,16 @@ public class ExtraController extends BaseController{
     @RequestMapping(value = "/EmailBox",method = RequestMethod.GET)
     public String emailBox(Model model, HttpSession httpSession){
         User user = (User) httpSession.getAttribute("user");
-        List<Email> emails = emailService.selectByReceiverId(user.getId());
-        model.addAttribute("emails",emails);
+        Integer pageNum = null;
+        if(getRequest().getParameter("pageNum")!=null){
+            pageNum = Integer.parseInt(getRequest().getParameter("pageNum"));
+        }
+        PageHelper.startPage(pageNum, 5);//开始分页
+        emailService.selectByReceiverId(user.getId());
+        PageHelper.Page endPage = PageHelper.endPage();//分页结束
+        model.addAttribute("page", endPage);
         return "jsp/personal/EmailBox";
     }
-
     /**
      * 已发送页面
      * @param model
@@ -117,8 +124,14 @@ public class ExtraController extends BaseController{
     @RequestMapping(value = "/sent",method = RequestMethod.GET)
     public String sent(Model model, HttpSession httpSession){
         User user = (User) httpSession.getAttribute("user");
-        List<Email> emails = emailService.selectBySenderId(user.getId());
-        model.addAttribute("emails",emails);
+        Integer pageNum = null;
+        if(getRequest().getParameter("pageNum")!=null){
+            pageNum = Integer.parseInt(getRequest().getParameter("pageNum"));
+        }
+        PageHelper.startPage(pageNum, 5);//开始分页
+        emailService.selectBySenderId(user.getId());
+        PageHelper.Page endPage = PageHelper.endPage();//分页结束
+        model.addAttribute("page", endPage);
         return "jsp/personal/sent";
     }
 

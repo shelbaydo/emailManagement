@@ -24,6 +24,6 @@
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
 
-
+        <plugin interceptor="com.ncu.emailManagement.common.PageHelper"></plugin>
     </plugins>
 </configuration>
