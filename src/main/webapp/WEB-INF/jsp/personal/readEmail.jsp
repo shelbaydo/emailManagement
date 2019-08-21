@@ -55,8 +55,8 @@
                         <div class="box-body no-padding">
                             <div class="mailbox-read-info">
                                 <h3>${email.emailTitle}</h3>
-                                <span style="font-weight: bold">From: ${email.sendId}<br>
-                                    To:${email.receiveId}</span>
+                                <span style="font-weight: bold">From: ${sendName}<br>
+                                    To:${receiveName}</span>
                             </div>
                             <!-- /.mailbox-controls -->
                             <div class="mailbox-read-message">
