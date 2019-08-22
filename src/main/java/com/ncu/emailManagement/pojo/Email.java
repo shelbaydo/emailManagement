@@ -3,6 +3,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 @Component
 public class Email implements Serializable {
@@ -22,8 +23,10 @@ public class Email implements Serializable {
 
     private String emailContent;
 
+    @Transient
     private User sender;
 
+    @Transient
     private User receiver;
     public User getSender() {
         return sender;
