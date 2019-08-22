@@ -5,6 +5,7 @@ import com.ncu.emailManagement.pojo.User;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper extends Mapper<User> {
 
@@ -13,4 +14,9 @@ public interface UserMapper extends Mapper<User> {
      * @return
      */
     List<User> selectAllPersonalUser(Long role);
+
+
+    List<User> page(Map<String, Object> params);
+
+    int count(Map<String, Object> params);
 }

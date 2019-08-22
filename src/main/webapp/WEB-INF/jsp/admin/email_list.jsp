@@ -74,6 +74,8 @@
                                             <div class="col-sm-8">
                                                 <select id="status" class="form-control">
                                                     <option value="">--请选择--</option>
+                                                    <option value="0">未读</option>
+                                                    <option value="1">已读</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -91,7 +93,7 @@
                             <h3 class="box-title">非法邮件列表</h3>
                         </div>
                         <div class="box-body">
-                            <button class="btn btn-primary btn-sm" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-download">搜索</i></button>
+                            <button class="btn btn-primary btn-sm" onclick="$('.box-info-search').css('display') === 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search">搜索</i></button>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive">
@@ -107,16 +109,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${emailList}" var="email">
-                                    <tr>
-                                        <td>${email.sender.userName}</td>
-                                        <td>${email.receiver.userName}</td>
-                                        <td>${email.emailTitle}</td>
-                                        <td>${email.emailAttach}</td>
-                                        <td><c:if test="${email.isRead == 0}">未读</c:if><c:if test="${email.isRead == 1}">已读</c:if></td>
-                                        <td><button class="btn btn-danger btn-sm" onclick=""><i class="fa fa-trash-o">删除</i></button>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                    </tr>
-                                </c:forEach>
                                 </tbody>
 
                             </table>
@@ -131,6 +123,82 @@
 <!-- /.content-wrapper -->
 <jsp:include page="../includes/copyright.jsp"/>
 <jsp:include page="../includes/footer.jsp"/>
-
+<script>
+    var dataTable;
+    $(function () {
+        //初始化DataTables
+        var columns = [
+            {"data": "sender.userName"},
+            {"data": "receiver.userName"},
+            {"data": "emailTitle"},
+            {"data": "emailAttach"},
+            {
+                "data": "isRead",
+                "render": function ( data, type, full, meta ) {
+                    if (data === 0)
+                        return "未读";
+                    else
+                        return "已读";
+                }
+            },
+            {
+                "data": function (row, type, val, meta) {
+                    return '<button class="btn btn-danger btn-sm" onclick="deleteCheck(\'' + row.emailId + '\')"><i class="fa fa-trash-o"> 删除</i></button>&nbsp;&nbsp;&nbsp;';
+                }
+            }
+        ];
+        dataTable = App.initDataTables("${pageContext.request.contextPath}/email/page", columns);
+    });
+    //搜索
+    function search() {
+        var sender = $("#sender").val();
+        var receiver = $("#receiver").val();
+        var title = $("#title").val();
+        var status = $("#status").val();
+        //查询参数
+        var param = {
+            "sender.userName": sender,
+            "receiver.userName": receiver,
+            "emailTitle": title,
+            "isRead": status
+        };
+        if (sender === '') {
+            delete param["sender.userName"];
+        }
+        if (receiver === '') {
+            delete param["receiver.userName"];
+        }
+        if (title === '') {
+            delete param.emailTitle;
+        }
+        if (status === '') {
+            delete param.isRead;
+        }
+        // console.log(param);
+        if (param !== {}) {
+            //设置参数，重新加载
+            dataTable.settings()[0].ajax.data = param;
+            dataTable.ajax.reload();
+        }
+    }
+    //删除
+    function deleteCheck(id) {
+        if(confirm("您确认删除该邮件吗？")){
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: "${pageContext.request.contextPath}/email/delete/"+id,
+                success: function (msg) {
+                    if (msg["message"] === "success") {
+                        dataTable.ajax.reload();
+                        alert("删除邮件成功");
+                    } else {
+                        alert("删除邮件失败");
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

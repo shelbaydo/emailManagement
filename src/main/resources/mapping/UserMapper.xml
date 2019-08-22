@@ -7,4 +7,39 @@
         FROM user
         WHERE role = #{role}
     </select>
+
+    <select id="page" resultType="com.ncu.emailManagement.pojo.User" parameterType="java.util.Map">
+        SELECT
+        id, user_name, is_active, role
+        FROM user
+        <where>
+            <if test="pageParams.userName != null and pageParams.userName != ''">
+                AND user_name LIKE CONCAT('%',#{pageParams.userName},'%')
+            </if>
+            <if test="pageParams.isActive != null">
+                AND is_active = #{pageParams.isActive}
+            </if>
+            <if test="pageParams.role != null">
+                AND role = #{pageParams.role}
+            </if>
+        </where>
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        COUNT(id)
+        FROM user
+        <where>
+            <if test="pageParams.userName != null and pageParams.userName != ''">
+                AND user_name LIKE CONCAT('%',#{pageParams.userName},'%')
+            </if>
+            <if test="pageParams.isActive != null">
+                AND is_active = #{pageParams.isActive}
+            </if>
+            <if test="pageParams.role != null">
+                AND role = #{pageParams.role}
+            </if>
+        </where>
+    </select>
 </mapper>

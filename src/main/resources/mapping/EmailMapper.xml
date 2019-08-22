@@ -40,4 +40,43 @@
         <include refid="emailColumns"/>
         FROM email LEFT JOIN user AS s ON send_id = s.id LEFT JOIN user AS r ON receive_id = r.id
     </select>
+    <select id="page" resultMap="emailResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="emailColumns"/>
+        FROM email LEFT JOIN user AS s ON send_id = s.id LEFT JOIN user AS r ON receive_id = r.id
+        <where>
+            <if test="pageParams.sender != null and pageParams.sender.userName != null and pageParams.sender.userName != ''">
+                AND s.user_name LIKE CONCAT('%',#{pageParams.sender.userName},'%')
+            </if>
+            <if test="pageParams.receiver != null and pageParams.receiver.userName != null and pageParams.receiver.userName != ''">
+                AND r.user_name LIKE CONCAT('%',#{pageParams.receiver.userName},'%')
+            </if>
+            <if test="pageParams.emailTitle != null and pageParams.emailTitle != ''">
+                AND email_title LIKE CONCAT('%',#{pageParams.emailTitle},'%')
+            </if>
+            <if test="pageParams.isRead != null">
+                AND is_read = #{pageParams.isRead}
+            </if>
+        </where>
+        LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        COUNT(email_id)
+        FROM email LEFT JOIN user AS s ON send_id = s.id LEFT JOIN user AS r ON receive_id = r.id
+        <where>
+            <if test="pageParams.sender != null and pageParams.sender.userName != null and pageParams.sender.userName != ''">
+                AND s.user_name LIKE CONCAT('%',#{pageParams.sender.userName},'%')
+            </if>
+            <if test="pageParams.receiver != null and pageParams.receiver.userName != null and pageParams.receiver.userName != ''">
+                AND r.user_name LIKE CONCAT('%',#{pageParams.receiver.userName},'%')
+            </if>
+            <if test="pageParams.emailTitle != null and pageParams.emailTitle != ''">
+                AND email_title LIKE CONCAT('%',#{pageParams.emailTitle},'%')
+            </if>
+            <if test="pageParams.isRead != null">
+                AND is_read = #{pageParams.isRead}
+            </if>
+        </where>
+    </select>
 </mapper>

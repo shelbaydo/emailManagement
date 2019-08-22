@@ -37,7 +37,7 @@
                 <li class="header">功能菜单</li>
                 <li class="active treeview">
                     <a href="#">
-                        <i class="fa fa-apple"></i> <span>用户管理</span>
+                        <i class="fa fa-user"></i> <span>用户管理</span>
                         <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -48,13 +48,13 @@
                 </li>
                 <li class="active treeview">
                     <a href="#">
-                        <i class="fa fa-book"></i> <span>非法邮件管理</span>
+                        <i class="fa fa-envelope"></i> <span>邮件管理</span>
                         <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="${pageContext.request.contextPath}/email/list"><i class="fa fa-circle-o"></i> 全部非法邮件</a></li>
+                        <li><a href="${pageContext.request.contextPath}/email/list"><i class="fa fa-circle-o"></i> 全部邮件</a></li>
                     </ul>
                 </li>
             </ul>

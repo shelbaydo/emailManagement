@@ -1,5 +1,6 @@
 package com.ncu.emailManagement.service;
 
+import com.ncu.emailManagement.dto.PageInfo;
 import com.ncu.emailManagement.pojo.User;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public interface UserService {
 
     public User findUserById(long sendId);
 
-
+    int unLockUser(Long id);
+    PageInfo<User> page(int draw, int start, int length, User user);
 
     int lockUser(Long id);
 

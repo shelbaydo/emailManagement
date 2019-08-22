@@ -42,8 +42,8 @@
                 <div class="col-md-3">
                     <div class="logo">
                         <h1>
-                            <a class="navbar-brand" href="index.html">
-                                <i class="fab fa-cloudversify"></i>appstore</a>
+                            <a class="navbar-brand" href="#">
+                                <i class="fab fa-cloudversify"></i>Email Management</a>
                         </h1>
                     </div>
                 </div>

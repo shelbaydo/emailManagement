@@ -1,5 +1,6 @@
 package com.ncu.emailManagement.service;
 
+import com.ncu.emailManagement.dto.PageInfo;
 import com.ncu.emailManagement.pojo.Email;
 
 import java.util.List;
@@ -9,6 +10,10 @@ import java.util.List;
  * created by LI LICHUNYAN at 2019/8/20
  */
 public interface EmailService {
+
+    PageInfo<Email> page(int draw, int start, int length, Email email);
+
+    int delete(Long id);
     List<Email> selectAll();
 
     /**

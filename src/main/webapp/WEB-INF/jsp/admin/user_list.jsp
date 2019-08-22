@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>User | 控制面板</title>
@@ -54,6 +54,8 @@
                                             <div class="col-sm-8">
                                                 <select id="status" class="form-control">
                                                     <option value="">--请选择--</option>
+                                                    <option value="0">非法用户</option>
+                                                    <option value="1">合法用户</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -65,6 +67,8 @@
                                             <div class="col-sm-8">
                                                 <select id="role" class="form-control">
                                                     <option value="">--请选择--</option>
+                                                    <option value="0">管理员</option>
+                                                    <option value="1">普通用户</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -82,7 +86,9 @@
                             <h3 class="box-title">用户列表</h3>
                         </div>
                         <div class="box-body">
-                            <button class="btn btn-primary btn-sm" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-download">搜索</i></button>
+                            <button class="btn btn-primary btn-sm"
+                                    onclick="$('.box-info-search').css('display') === 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')">
+                                <i class="fa fa-search">搜索</i></button>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive">
@@ -96,14 +102,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${userList}" var="user">
-                                    <tr>
-                                        <td>${user.userName}</td>
-                                        <td><c:if test="${user.isActive == 0}">非法用户</c:if><c:if test="${user.isActive == 1}">合法用户</c:if></td>
-                                        <td><c:if test="${user.role == 0}">管理员</c:if><c:if test="${user.role == 1}">普通用户</c:if></td>
-                                        <td><button class="btn btn-danger btn-sm" onclick=""><i class="fa fa-trash-o">锁定</i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick=""><i class="fa fa-trash-o">解除</i></button></td>
-                                    </tr>
-                                </c:forEach>
+
                                 </tbody>
 
                             </table>
@@ -119,5 +118,117 @@
 <jsp:include page="../includes/copyright.jsp"/>
 <jsp:include page="../includes/footer.jsp"/>
 
+<script>
+    var dataTable;
+    $(function () {
+        //初始化DataTables
+        var columns = [
+            {"data": "userName"},
+            {
+                "data": "isActive",
+                "render": function ( data, type, full, meta ) {
+                    if (data === 0)
+                        return "非法用户";
+                    else
+                        return "合法用户";
+                }
+            },
+            {
+                "data": "role",
+                "render": function ( data, type, full, meta ) {
+                    // alert(data);
+                    if (data === 0)
+                        return "管理员";
+                    else
+                        return "普通用户";
+                }
+            },
+            {
+                "data": function (row, type, val, meta) {
+                    return '<button class="btn btn-danger btn-sm" onclick="lock(\'' + row.id + '\' ,\'' + row.isActive + '\' ,\'' + row.role + '\' )"><i class="fa fa-lock"> 锁定</i></button>&nbsp;&nbsp;&nbsp;' +
+                        '<button class="btn btn-primary btn-sm" onclick="unlock(\'' + row.id + '\' ,\'' + row.isActive + '\' ,\'' + row.role + '\' )"><i class="fa fa-unlock-alt"> 解除</i></button>&nbsp;&nbsp;&nbsp;';
+                }
+            }
+        ];
+        dataTable = App.initDataTables("${pageContext.request.contextPath}/user/page", columns);
+    });
+    //搜索
+    function search() {
+        var username = $("#username").val();
+        var status = $("#status").val();
+        var role = $("#role").val();
+        //查询参数
+        var param = {
+            "userName": username,
+            "isActive": status,
+            "role": role
+        };
+        if (username === '') {
+            delete param.username;
+        }
+        if (status === '') {
+            delete param.isActive;
+        }
+        if (role === '') {
+            delete param.role;
+        }
+        console.log(param);
+        if (param !== {}) {
+            //设置参数，重新加载
+            dataTable.settings()[0].ajax.data = param;
+            dataTable.ajax.reload();
+        }
+    }
+    //锁定
+    function lock(id, isActive, isAdmin) {
+        if (isAdmin === '0') {
+            alert("无法对管理员账号进行该操作");
+            return;
+        }
+        if (isActive === '0') {
+            alert("当前用户状态为：非法用户，无法再次锁定");
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/user/lock/" + id,
+                dataType: 'json',
+                success: function (msg) {
+                    // alert(msg["message"]);
+                    if (msg["message"] === "success") {
+                        dataTable.ajax.reload();
+                        alert("锁定用户成功");
+                    } else {
+                        alert("锁定用户失败");
+                    }
+                }
+            });
+        }
+    }
+    //解除锁定
+    function unlock(id, isActive, isAdmin) {
+        if (isAdmin === '0') {
+            alert("无法对管理员账号进行该操作");
+            return;
+        }
+        if (isActive === '1') {
+            alert("当前用户状态为：合法用户，无法解除锁定");
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/user/unlock/" + id,
+                dataType: 'json',
+                success: function (msg) {
+                    // alert(msg["message"]);
+                    if (msg["message"] === "success") {
+                        dataTable.ajax.reload();
+                        alert("解除锁定成功");
+                    } else {
+                        alert("解除锁定失败");
+                    }
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>
