@@ -38,6 +38,9 @@
                 <c:if test="${error eq 'userName_fail'}">
                     <span id="userName_span" style="color: red" >用户名不存在</span>
                 </c:if>
+                <c:if test="${error eq 'notActive'}">
+                    <span id="userName_span" style="color: red" >用户已被锁定</span>
+                </c:if>
             </div>
             <div class="form-group has-feedback">
                 <input id="password" type="password" class="form-control" placeholder="密码" name="password" value="${password}">

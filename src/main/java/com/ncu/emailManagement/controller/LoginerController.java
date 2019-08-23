@@ -33,7 +33,11 @@ public class LoginerController extends BaseController {
         }else if(user.getPassword().equals(password)==false){
             model.addAttribute("error","pwd_fail");
             return "login";
+        }else if(user.getIsActive()==0){
+            model.addAttribute("error","notActive");
+            return "login";
         }
+
         getSession().setAttribute("user",user);
         model.addAttribute("user",user);
         return "jsp/personal/index";
